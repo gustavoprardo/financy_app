@@ -1,11 +1,11 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-// import 'dart:developer';
+import 'dart:developer';
 
-import 'package:financy_app/common/widgets/primary_button.dart';
+import 'package:financy_app/common/widgets/multi_text_button.dart';
 import 'package:flutter/material.dart';
 
 import 'package:financy_app/common/constants/app_colors.dart';
 import 'package:financy_app/common/constants/app_text_styles.dart';
+import 'package:financy_app/common/widgets/primary_button.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -14,20 +14,20 @@ class OnboardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.iceWhite,
-      body: Column(
+      body: ListView(
+        physics: BouncingScrollPhysics(),
         children: <Widget>[
-          SizedBox(height: 60,),
-          Expanded(
-            flex: 2,
-            child: Image.asset('assets/images/logo.png'),
-          ),
+          SizedBox(height: 60),
+          Expanded(flex: 2, child: Image.asset('assets/images/logo.png')),
           Text(
+            textAlign: TextAlign.center,
             'Spend Smarter',
             style: AppTextStyles.mediumText.copyWith(
               color: AppColors.greenLightTwo,
             ),
           ),
           Text(
+            textAlign: TextAlign.center,
             'Save More',
             style: AppTextStyles.mediumText.copyWith(
               color: AppColors.greenLightTwo,
@@ -37,9 +37,20 @@ class OnboardingPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
             child: PrimaryButton(text: 'Get Started', onTap: () {}),
           ),
-          Text(
-            'Already have account? Log In',
-            style: AppTextStyles.smallText.copyWith(color: AppColors.grey),
+          MultiTextButton(
+            onPressed: () => log('tap'),
+            children: [
+              Text(
+                'Already have account? ',
+                style: AppTextStyles.smallText.copyWith(color: AppColors.grey),
+              ),
+              Text(
+                ' Log in ',
+                style: AppTextStyles.smallText.copyWith(
+                  color: AppColors.greenLightOne,
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 40),
         ],
@@ -47,4 +58,3 @@ class OnboardingPage extends StatelessWidget {
     );
   }
 }
-
