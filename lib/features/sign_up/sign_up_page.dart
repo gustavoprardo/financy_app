@@ -2,6 +2,7 @@
 import 'dart:developer';
 
 import 'package:financy_app/common/widgets/custom_textformfield.dart';
+import 'package:financy_app/common/widgets/password_formfield.dart';
 import 'package:flutter/material.dart';
 
 import 'package:financy_app/common/constants/app_colors.dart';
@@ -9,8 +10,16 @@ import 'package:financy_app/common/constants/app_text_styles.dart';
 import 'package:financy_app/common/widgets/multi_text_button.dart';
 import 'package:financy_app/common/widgets/primary_button.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +41,66 @@ class SignUpPage extends StatelessWidget {
             ),
           ),
           Image.asset('assets/images/logo_sign_up.png'),
-          Form(child: Column(children: [CustomTextFormField(
-            labelText: 'your name',
-            hintText: 'your@email.com',
-
-          )])),
+          Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                CustomTextFormField(
+                  labelText: 'your name',
+                  hintText: 'your username',
+                  validator: (value) {
+                    if(value != null && value.isEmpty){
+                      return 'Campo obrigatorio!';
+                    }
+                    return null;
+                  },
+                ),
+                CustomTextFormField(
+                  keyBoardType: TextInputType.emailAddress,
+                  labelText: 'your email',
+                  hintText: 'your@email.com',
+                  validator: (value) {
+                    if(value != null && value.isEmpty){
+                      return 'Campo obrigatorio!';
+                    }
+                    return null;
+                  },
+                ), // EMAIL
+                PasswordFormfield(
+                  labelText: 'choose your password',
+                  hintText: '123456#Abcd',
+                  validator: (value) {
+                    if(value != null && value.isEmpty){
+                      return 'Campo obrigatorio!';
+                    }
+                    return null;
+                  },
+                ),
+                PasswordFormfield(
+                  labelText: 'confirm your password',
+                  hintText: '123456#Abcd',
+                  validator: (value) {
+                    if(value != null && value.isEmpty){
+                      return 'Campo obrigatorio!';
+                    }
+                    return null;
+                  },
+                ),
+              ],
+            ),
+          ), // YOUR NAME
           Padding(
             padding: const EdgeInsets.fromLTRB(32, 16, 32, 0),
-            child: PrimaryButton(text: 'Sign Up', onTap: () {}),
+            child: PrimaryButton(text: 'Sign Up', onTap: () {
+              final valid = _formKey.currentState != null && _formKey.currentState!.validate();
+              if(valid) {
+                // ignore: avoid_print
+                print('continuar logica de login');
+              } else {
+                // ignore: avoid_print
+                print('erro ao logar');
+              }
+            }),
           ),
           MultiTextButton(
             onPressed: () => log('tap'),
@@ -61,5 +122,3 @@ class SignUpPage extends StatelessWidget {
     );
   }
 }
-
-
