@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 
+import 'package:financy_app/common/utils/validator.dart';
 import 'package:financy_app/common/widgets/custom_textformfield.dart';
 import 'package:financy_app/common/widgets/password_formfield.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +19,8 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-
   final _formKey = GlobalKey<FormState>();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,59 +49,51 @@ class _SignUpPageState extends State<SignUpPage> {
                 CustomTextFormField(
                   labelText: 'your name',
                   hintText: 'your username',
-                  validator: (value) {
-                    if(value != null && value.isEmpty){
-                      return 'Campo obrigatorio!';
-                    }
-                    return null;
-                  },
+                  validator: Validator.validateName,
                 ),
                 CustomTextFormField(
                   keyBoardType: TextInputType.emailAddress,
                   labelText: 'your email',
                   hintText: 'your@email.com',
-                  validator: (value) {
-                    if(value != null && value.isEmpty){
-                      return 'Campo obrigatorio!';
-                    }
-                    return null;
-                  },
+                  validator: Validator.validateEmail,
                 ), // EMAIL
                 PasswordFormfield(
+                  controller: _passwordController,
+                  helperText:
+                      'Must have at least 8 character, 1 capital letter and 1 number!',
                   labelText: 'choose your password',
                   hintText: '123456#Abcd',
-                  validator: (value) {
-                    if(value != null && value.isEmpty){
-                      return 'Campo obrigatorio!';
-                    }
-                    return null;
-                  },
+                  validator: Validator.validatePassword,
                 ),
                 PasswordFormfield(
                   labelText: 'confirm your password',
                   hintText: '123456#Abcd',
-                  validator: (value) {
-                    if(value != null && value.isEmpty){
-                      return 'Campo obrigatorio!';
-                    }
-                    return null;
-                  },
+                  validator:
+                      (value) => Validator.validateconfirmPassword(
+                        value,
+                        _passwordController.text,
+                      ),
                 ),
               ],
             ),
           ), // YOUR NAME
           Padding(
             padding: const EdgeInsets.fromLTRB(32, 16, 32, 0),
-            child: PrimaryButton(text: 'Sign Up', onTap: () {
-              final valid = _formKey.currentState != null && _formKey.currentState!.validate();
-              if(valid) {
-                // ignore: avoid_print
-                print('continuar logica de login');
-              } else {
-                // ignore: avoid_print
-                print('erro ao logar');
-              }
-            }),
+            child: PrimaryButton(
+              text: 'Sign Up',
+              onTap: () {
+                final valid =
+                    _formKey.currentState != null &&
+                    _formKey.currentState!.validate();
+                if (valid) {
+                  // ignore: avoid_print
+                  print('continuar logica de login');
+                } else {
+                  // ignore: avoid_print
+                  print('erro ao logar');
+                }
+              },
+            ),
           ),
           MultiTextButton(
             onPressed: () => log('tap'),

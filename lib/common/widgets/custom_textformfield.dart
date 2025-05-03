@@ -44,12 +44,31 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     borderSide: BorderSide(color: AppColors.greenLightTwo),
   );
 
+  String? _helperText;
+
+  @override
+  void initState() {
+    super.initState();
+    _helperText = widget.helperText;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding:
           widget.padding ?? EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       child: TextFormField(
+        onChanged: (value) {
+          if(value.length == 1) {
+            setState(() {
+              _helperText = null;
+            });
+          } else if (value.isEmpty) {
+            setState(() {
+              _helperText = widget.helperText;
+            });
+          }
+        },
         validator: widget.validator,
         obscureText: widget.obscureText ?? false,
         textInputAction: widget.textInputAction,
@@ -58,7 +77,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         controller: widget.controller,
         textCapitalization: widget.textCapitalization ?? TextCapitalization.none,
         decoration: InputDecoration(
-          helperText: widget.helperText,
+          helperText: _helperText,
+          helperMaxLines: 3,
           suffixIcon: widget.suffixIcon,
           hintText: widget.hintText,
           floatingLabelBehavior: FloatingLabelBehavior.always,
