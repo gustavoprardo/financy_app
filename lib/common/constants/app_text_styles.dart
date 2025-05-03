@@ -23,4 +23,9 @@ class AppTextStyles {
     fontSize: 14,
     fontWeight: FontWeight.w500,
   );
+  static TextStyle inputLabelText = TextStyle(
+    fontFamily: 'Inter',
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+  );
 }
