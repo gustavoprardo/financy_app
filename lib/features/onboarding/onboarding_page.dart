@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:financy_app/common/constants/routes.dart';
 import 'package:financy_app/common/widgets/multi_text_button.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +36,15 @@ class OnboardingPage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-            child: PrimaryButton(text: 'Get Started', onTap: () {}),
+            child: PrimaryButton(
+              text: 'Get Started',
+              onTap: () {
+                Navigator.pushReplacementNamed(
+                  context,
+                  NamedRoutes.signUp,
+                );
+              },
+            ),
           ),
           MultiTextButton(
             onPressed: () => log('tap'),
