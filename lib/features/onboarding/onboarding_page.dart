@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:financy_app/common/constants/routes.dart';
 import 'package:financy_app/common/widgets/multi_text_button.dart';
 import 'package:flutter/material.dart';
-
 import 'package:financy_app/common/constants/app_colors.dart';
 import 'package:financy_app/common/constants/app_text_styles.dart';
 import 'package:financy_app/common/widgets/primary_button.dart';
@@ -47,14 +44,14 @@ class OnboardingPage extends StatelessWidget {
             ),
           ),
           MultiTextButton(
-            onPressed: () => log('tap'),
+            onPressed: () => Navigator.pushNamed(context, NamedRoutes.signIn),
             children: [
               Text(
                 'Already have account? ',
                 style: AppTextStyles.smallText.copyWith(color: AppColors.grey),
               ),
               Text(
-                ' Log in ',
+                ' Sign in ',
                 style: AppTextStyles.smallText.copyWith(
                   color: AppColors.greenLightOne,
                 ),
