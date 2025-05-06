@@ -19,9 +19,9 @@ class SignUpController extends ChangeNotifier{
       await Future.delayed(const Duration(seconds: 2));
     
     throw Exception('Erro ao Logar');
-    print('usuario logado');
-    _changeState(SignUpSuccessState());
-    return true;
+    // print('usuario logado');
+    // _changeState(SignUpSuccessState());
+    // return true;
     } catch (e) {
       _changeState(SignUpErrorState());
       return false;

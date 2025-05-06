@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:financy_app/common/utils/validator.dart';
+import 'package:financy_app/common/widgets/custom_bottom_sheet.dart';
+import 'package:financy_app/common/widgets/custom_circular_progress_indicator.dart';
 import 'package:financy_app/common/widgets/custom_textformfield.dart';
 import 'package:financy_app/common/widgets/password_formfield.dart';
 import 'package:financy_app/features/sign_up/sign_up_controller.dart';
@@ -11,6 +13,20 @@ import 'package:financy_app/common/constants/app_colors.dart';
 import 'package:financy_app/common/constants/app_text_styles.dart';
 import 'package:financy_app/common/widgets/multi_text_button.dart';
 import 'package:financy_app/common/widgets/primary_button.dart';
+import 'package:flutter/services.dart';
+
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    return newValue.copyWith(
+      text: newValue.text.toUpperCase(),
+      selection: newValue.selection,
+    );
+  }
+}
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -22,6 +38,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
+  final _nameController = TextEditingController();
   final _controller = SignUpController();
 
   @override
@@ -32,7 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
         showDialog(
           context: context,
           builder:
-              (context) => const Center(child: CircularProgressIndicator()),
+              (context) => CustomProgressIndicator(),
         );
       }
       if (_controller.state is SignUpSuccessState) {
@@ -46,14 +63,7 @@ class _SignUpPageState extends State<SignUpPage> {
         );
       }
       if (_controller.state is SignUpErrorState) {
-        showDialog(
-          context: context,
-          builder:
-              (context) => SizedBox(
-                height: 150,
-                child: Text('Erro ao Logar, tente novamente!'),
-              ),
-        );
+        customModalBottomSheet(context);
       }
     });
   }
@@ -83,9 +93,11 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Column(
               children: [
                 CustomTextFormField(
+                  controller: _nameController,
                   labelText: 'your name',
                   hintText: 'your username',
                   validator: Validator.validateName,
+                  inputFormatters: [UpperCaseTextFormatter()],
                 ),
                 CustomTextFormField(
                   keyBoardType: TextInputType.emailAddress,
@@ -150,3 +162,5 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 }
+
+

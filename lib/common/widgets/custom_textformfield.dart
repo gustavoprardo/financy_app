@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:financy_app/common/constants/app_colors.dart';
 import 'package:financy_app/common/constants/app_text_styles.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextFormField extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
@@ -17,6 +18,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool? obscureText;
   final FormFieldValidator<String>? validator;
   final String? helperText;
+  final List<TextInputFormatter>? inputFormatters;
 
   // ignore: use_super_parameters
   const CustomTextFormField({
@@ -33,6 +35,7 @@ class CustomTextFormField extends StatefulWidget {
     this.obscureText,
     this.validator,
     this.helperText,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -59,7 +62,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           widget.padding ?? EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       child: TextFormField(
         onChanged: (value) {
-          if(value.length == 1) {
+          if (value.length == 1) {
             setState(() {
               _helperText = null;
             });
@@ -69,22 +72,29 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             });
           }
         },
+        inputFormatters: widget.inputFormatters,
         validator: widget.validator,
         obscureText: widget.obscureText ?? false,
         textInputAction: widget.textInputAction,
         maxLength: widget.maxLength,
         keyboardType: widget.keyBoardType,
         controller: widget.controller,
-        textCapitalization: widget.textCapitalization ?? TextCapitalization.none,
+        textCapitalization:
+            widget.textCapitalization ?? TextCapitalization.none,
         decoration: InputDecoration(
           errorMaxLines: 3,
           helperText: _helperText,
           helperMaxLines: 3,
           suffixIcon: widget.suffixIcon,
           hintText: widget.hintText,
+          hintStyle: AppTextStyles.inputHintText.copyWith(
+            color: AppColors.greenLightOne,
+          ),
           floatingLabelBehavior: FloatingLabelBehavior.always,
           labelText: widget.labelText?.toUpperCase(),
-          labelStyle: AppTextStyles.inputLabelText.copyWith(color: AppColors.darkGrey),
+          labelStyle: AppTextStyles.inputLabelText.copyWith(
+            color: AppColors.darkGrey,
+          ),
           focusedBorder: defaultBorder.copyWith(
             borderSide: const BorderSide(color: Colors.red),
           ),
