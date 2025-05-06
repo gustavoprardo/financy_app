@@ -77,6 +77,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         controller: widget.controller,
         textCapitalization: widget.textCapitalization ?? TextCapitalization.none,
         decoration: InputDecoration(
+          errorMaxLines: 3,
           helperText: _helperText,
           helperMaxLines: 3,
           suffixIcon: widget.suffixIcon,

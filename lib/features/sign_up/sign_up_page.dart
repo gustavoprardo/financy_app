@@ -1,9 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 
 import 'package:financy_app/common/utils/validator.dart';
 import 'package:financy_app/common/widgets/custom_textformfield.dart';
 import 'package:financy_app/common/widgets/password_formfield.dart';
+import 'package:financy_app/features/sign_up/sign_up_controller.dart';
+import 'package:financy_app/features/sign_up/sign_up_state.dart';
 import 'package:flutter/material.dart';
 
 import 'package:financy_app/common/constants/app_colors.dart';
@@ -21,6 +22,41 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
+  final _controller = SignUpController();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() {
+      if (_controller.state is SignUpLoadingState) {
+        showDialog(
+          context: context,
+          builder:
+              (context) => const Center(child: CircularProgressIndicator()),
+        );
+      }
+      if (_controller.state is SignUpSuccessState) {
+        Navigator.pop(context);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder:
+                (context) => Scaffold(body: Center(child: Text('Nova tela'))),
+          ),
+        );
+      }
+      if (_controller.state is SignUpErrorState) {
+        showDialog(
+          context: context,
+          builder:
+              (context) => SizedBox(
+                height: 150,
+                child: Text('Erro ao Logar, tente novamente!'),
+              ),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,8 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     _formKey.currentState != null &&
                     _formKey.currentState!.validate();
                 if (valid) {
-                  // ignore: avoid_print
-                  print('continuar logica de login');
+                  _controller.doSignUp();
                 } else {
                   // ignore: avoid_print
                   print('erro ao logar');
