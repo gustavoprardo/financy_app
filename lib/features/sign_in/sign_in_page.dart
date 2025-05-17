@@ -6,7 +6,7 @@ import 'package:financy_app/common/widgets/custom_textformfield.dart';
 import 'package:financy_app/common/widgets/password_formfield.dart';
 import 'package:financy_app/features/sign_in/sign_in_controller.dart';
 import 'package:financy_app/features/sign_in/sign_in_state.dart';
-import 'package:financy_app/services/mock_auth_service.dart';
+import 'package:financy_app/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:financy_app/common/constants/app_colors.dart';
 import 'package:financy_app/common/constants/app_text_styles.dart';
@@ -38,7 +38,7 @@ class _SignIpPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
   final _emailController = TextEditingController();
-  final _controller = SignInController(MockAuthService());
+  final _controller = locator.get<SignInController>();
 
   @override
   void dispose() {
