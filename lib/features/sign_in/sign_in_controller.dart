@@ -23,7 +23,7 @@ class SignInController extends ChangeNotifier {
     _changeState(SignInLoadingState());
 
     try {
-      await _service.signUp(email: email, password: password);
+      await _service.signIn(email: email, password: password);
 
       _changeState(SignInSuccessState());
     } catch (e) {
