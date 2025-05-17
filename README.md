@@ -22,25 +22,3 @@ GetIt (injeção de dependências)
 Firebase (autenticação e backend)
 
 MobX (gerenciamento de estado)
-
-Como usar
-Clone o repositório:
-
-bash
-Copiar
-Editar
-git clone https://github.com/seuusuario/financy_app.git
-Instale as dependências:
-
-bash
-Copiar
-Editar
-flutter pub get
-Execute o app:
-
-bash
-Copiar
-Editar
-flutter run
-Contribuições
-Este projeto é para fins de aprendizado e treino pessoal. Porém, contribuições são bem-vindas para melhorias e correções.
