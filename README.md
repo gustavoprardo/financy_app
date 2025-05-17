@@ -1,16 +1,46 @@
-# financy_app
+Financy App
+Financy App é um aplicativo de treinamento desenvolvido em Flutter com o objetivo de ajudar no aprendizado e prática de desenvolvimento mobile. Ele simula funcionalidades básicas de um app financeiro, permitindo ao usuário entender melhor conceitos de Flutter, gerenciamento de estado, injeção de dependência e integração com serviços.
 
-A new Flutter project.
+Funcionalidades
+Cadastro e login de usuários (simulado para fins de treino)
 
-## Getting Started
+Gerenciamento de despesas e receitas
 
-This project is a starting point for a Flutter application.
+Interface amigável e responsiva para dispositivos Android e iOS
 
-A few resources to get you started if this is your first Flutter project:
+Integração com Firebase para autenticação e backend (em desenvolvimento)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Uso de padrões modernos de arquitetura e boas práticas no Flutter
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Tecnologias Utilizadas
+Flutter
+
+Dart
+
+GetIt (injeção de dependências)
+
+Firebase (autenticação e backend)
+
+MobX (gerenciamento de estado)
+
+Como usar
+Clone o repositório:
+
+bash
+Copiar
+Editar
+git clone https://github.com/seuusuario/financy_app.git
+Instale as dependências:
+
+bash
+Copiar
+Editar
+flutter pub get
+Execute o app:
+
+bash
+Copiar
+Editar
+flutter run
+Contribuições
+Este projeto é para fins de aprendizado e treino pessoal. Porém, contribuições são bem-vindas para melhorias e correções.
