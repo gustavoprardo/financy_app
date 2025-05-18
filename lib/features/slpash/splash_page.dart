@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:financy_app/common/constants/app_colors.dart';
 import 'package:financy_app/common/constants/app_text_styles.dart';
+import 'package:financy_app/common/constants/routes.dart';
 import 'package:financy_app/common/widgets/custom_circular_progress_indicator.dart';
 import 'package:financy_app/features/slpash/splash_controller.dart';
 import 'package:financy_app/features/slpash/splash_state.dart';
@@ -23,11 +22,9 @@ class _SplashPageState extends State<SplashPage> {
     _slpashController.isUserLogged();
     _slpashController.addListener(() {
       if(_slpashController.state is SplashSuccessState){
-        // call home
-        log('navegar para home');
+        Navigator.pushReplacementNamed(context, NamedRoutes.home);
       } else {
-        // call onboarding
-        log('navegar para onboarding');
+        Navigator.pushReplacementNamed(context, NamedRoutes.initial);
       }
     });
   }

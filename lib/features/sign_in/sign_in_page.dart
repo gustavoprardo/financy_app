@@ -60,13 +60,7 @@ class _SignIpPageState extends State<SignInPage> {
       }
       if (_controller.state is SignInSuccessState) {
         Navigator.pop(context);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder:
-                (context) => Scaffold(body: Center(child: Text('Nova tela'))),
-          ),
-        );
+        Navigator.pushReplacementNamed(context, NamedRoutes.home);
       }
       if (_controller.state is SignInErrorState) {
         final error = _controller.state as SignInErrorState;

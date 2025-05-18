@@ -1,5 +1,6 @@
 import 'package:financy_app/features/sign_in/sign_in_state.dart';
 import 'package:financy_app/services/auth_service.dart';
+import 'package:financy_app/services/secure_storage.dart';
 import 'package:flutter/material.dart';
 
 class SignInController extends ChangeNotifier {
@@ -20,10 +21,18 @@ class SignInController extends ChangeNotifier {
     required String email,
     required String password,
   }) async {
+    const secureStorage = SecureStorage();
     _changeState(SignInLoadingState());
 
     try {
-      await _service.signIn(email: email, password: password);
+      final user = await _service.signIn(email: email, password: password);
+
+      if(user.id != null) {
+        await secureStorage.write(key: 'CURRENT_USER', value: user.toJson());
+        _changeState(SignInSuccessState());
+      } else {
+        throw Exception();
+      }
 
       _changeState(SignInSuccessState());
     } catch (e) {
